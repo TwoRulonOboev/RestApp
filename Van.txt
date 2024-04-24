@@ -1,0 +1,62 @@
+CREATE TABLE Users (
+    Id INT PRIMARY KEY IDENTITY,
+    EMail NVARCHAR(100) NOT NULL,
+    Password NVARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Subscribers (
+    Id INT PRIMARY KEY IDENTITY,
+    LastName NVARCHAR(100) NOT NULL,
+    PhoneNumber NVARCHAR(20) NOT NULL,
+    MonthlyFee DECIMAL(18, 2) NOT NULL
+);
+
+CREATE TABLE PaymentRecords (
+    Id INT PRIMARY KEY IDENTITY,
+    SubscriberId INT NOT NULL,
+    PaymentDate DATE NOT NULL,
+    PaymentAmount DECIMAL(18, 2) NOT NULL,
+    DebtOrOverpayment DECIMAL(18, 2) NOT NULL,
+    FOREIGN KEY (SubscriberId) REFERENCES Subscribers(Id)
+);
+-- Добавление пользователей
+INSERT INTO Users (EMail, Password)
+VALUES ('user1', '123');
+
+
+-- Добавление абонентов
+INSERT INTO Subscribers (LastName, PhoneNumber, MonthlyFee)
+VALUES ('Иванов', '1234567890', 50.00),
+       ('Петров', '0987654321', 60.00),
+       ('Сидоров', '5555555555', 45.00),
+       ('Козлов', '6666666666', 70.00),
+       ('Смирнов', '7777777777', 55.00),
+       ('Новиков', '8888888888', 80.00),
+       ('Морозов', '9999999999', 65.00);
+
+-- Добавление записей об оплате
+INSERT INTO PaymentRecords (SubscriberId, PaymentDate, PaymentAmount, DebtOrOverpayment)
+VALUES (1, '2024-04-01', 50.00, 0.00),
+       (2, '2024-04-02', 60.00, 0.00),
+       (3, '2024-04-03', 45.00, 0.00),
+       (4, '2024-04-04', 70.00, 0.00),
+       (5, '2024-04-05', 55.00, 0.00),
+       (6, '2024-04-06', 80.00, 0.00),
+       (7, '2024-04-07', 65.00, 0.00),
+       (1, '2024-04-08', 55.00, 5.00),
+       (2, '2024-04-09', 60.00, 0.00),
+       (3, '2024-04-10', 45.00, 0.00),
+       (4, '2024-04-11', 70.00, 0.00),
+       (5, '2024-04-12', 55.00, 0.00),
+       (6, '2024-04-13', 80.00, 0.00),
+       (7, '2024-04-14', 65.00, 0.00),
+       (1, '2024-04-15', 60.00, 15.00),
+       (2, '2024-04-16', 60.00, 0.00),
+       (3, '2024-04-17', 45.00, 0.00),
+       (4, '2024-04-18', 70.00, 0.00),
+       (5, '2024-04-19', 55.00, 0.00),
+       (6, '2024-04-20', 80.00, 0.00),
+       (7, '2024-04-21', 65.00, 0.00),
+       (1, '2024-04-22', 55.00, 5.00),
+       (2, '2024-04-23', 60.00, 0.00),
+       (3, '2024-04-24', 45.00, 0.00);
